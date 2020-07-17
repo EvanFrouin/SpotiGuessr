@@ -1,0 +1,56 @@
+<header>
+	<playlist-cover ng-model="data" width="200"></playlist-cover>
+	<h4 ng-show="data.collaborative">COLLABORATIVE PLAYLIST</h4>
+	<h4 ng-hide="data.collaborative">PLAYLIST</h4>
+	<h1>{{data.name}}</h1>
+	<p ng-bind-html="playlistDescription"></p>
+	<div class="follower-count">{{data.followers.total | number}} followers</div>
+
+	<div class="buttons">
+		<a ng-click="playall()" class="button green">PLAY</a>
+	</div>
+</header>
+<body>
+	<div class="centered">
+		<div class="innered">
+			<div class="divLeft">
+				<h2 class="headertekst" id="trackvisual">Track</h2>
+
+
+			</div>
+			<div class="divRight">
+				<h2 class="headertekst" id="artistvisual">Artist</h2>
+
+
+
+			</div>
+		
+
+
+
+			<form name="guessform" class="center" onsubmit="return guessed(guess.value)">
+				<input type="text" name="guess" onpaste="return false" placeholder="Tape ici le titre ou l'artiste" id="guess" class="guess">
+				</br>
+				</br>
+				<div class="guesscenter">
+					<button type='submit' class="guessbtn ">GUESS</button>
+				</div>
+			</form>
+	</div>
+</div>
+</body>
+
+
+<!--
+
+<hr/>
+
+<h2>Missing functionality</h2>
+
+<p>Mosaic</p>
+
+<p><a href="#">PLAY FIRSTT THING</a></p>
+
+<p><a href="#">FOLLOW/FOLLOWING</a></p>
+
+-->
