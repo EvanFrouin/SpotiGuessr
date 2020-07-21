@@ -1,7 +1,13 @@
 var trackname ="null";
 var artistname ="null";
+var tracksname;
+var artistsname
+var artistcheck = 0;
+var trackcheck = 0;
 var index = 0;
 var tracksall ;
+var PlayQueue2 ;
+
 
 (function() {
 	
@@ -17,6 +23,7 @@ var tracksall ;
 		$scope.total_duration = 0;
 
 		$scope.currenttrack = PlayQueue.getCurrent();
+		PlayQueue2 = PlayQueue.getCurrent();
 		$scope.isFollowing = false;
 		$scope.isFollowHovered = false;
 
@@ -72,12 +79,28 @@ var tracksall ;
 		};
 
 		$scope.playall = function() {
+			artistcheck = 0;
+			trackcheck = 0;
+			
+			decompte(getTimeAdd(5));
+			
+
 			var alltracks = $scope.tracks;
 			var shuffled = shuffle(alltracks);
 			tracksall=shuffled;
+			
 			var trackuris =shuffled.map(function(track) {
 				return track.track.uri;
 			});
+			tracksname =tracksall.map(function(track) {
+				return track.track.name;
+			});
+			artistsname =tracksall.map(function(track) {
+				return track.track.artists[0].name;
+			});
+
+			console.log("ICI "+tracksname);
+			console.log("LA "+artistsname);
 
 			
 			PlayQueue.clear();
@@ -89,7 +112,10 @@ var tracksall ;
 			
 			PlayQueue.enqueueList(trackuris);
 			PlayQueue.playFrom(0);
+			PlayQueue2 = PlayQueue;
+			
 		};
+
 
 		$scope.toggleFromYourMusic = function(index) {
 			if ($scope.tracks[index].track.inYourMusic) {
@@ -147,14 +173,11 @@ function shuffle(array) {
   }
 
   function guessed(rep){
+	
 	var WrongSound = new Audio('sound/wrong.mp3')
 	var CorrectSound = new Audio('sound/correct.mp3')
-	var tracksname =tracksall.map(function(track) {
-		return track.track.name;
-	});
-	var artistsname =tracksall.map(function(track) {
-		return track.track.artists[0].name;
-	});
+
+	
 
 	//console.log(trackname);
 	//alert(similarity(rep,trackname));
@@ -166,7 +189,9 @@ function shuffle(array) {
 			$("#trackvisual").css("color", "#070")
 			$("#trackvisual").css("font-weight", "bold");
 			CorrectSound.play();
+			wave();
 		});
+		trackcheck=1;
 	}
 
 	//alert(similarity(rep,artistname));
@@ -178,16 +203,89 @@ function shuffle(array) {
 			$("#artistvisual").css("color", "#070")
 			$("#artistvisual").css("font-weight", "bold");
 			CorrectSound.play();
+			wave();
 		});
+		artistcheck=1;
 	}
 
 	if(similarity(rep,artistname)<0.75 && similarity(rep,trackname)<0.75){
 		WrongSound.play();
+		$(document).ready(function() {
+			$("#guess").effect("shake", {times:1}, 350);
+		  });
+
+	}
+	if(trackcheck==1 && artistcheck==1){
+		win();
 	}
 
 	document.getElementById("guess").value ="";
 	
   }
+
+  function win(){
+	document.getElementById('secondes').innerHTML = "Nice one !";
+	next();	
+  }
+
+  function next(){
+	PlayQueue2.pause();
+	setTimeout(() => {
+		index++;
+		trackname=tracksname[index];
+		artistname=artistsname[index];
+		console.log("T: "+trackname+" A: "+artistname);
+		resetTA();
+		decompte(getTimeAdd(5));
+		PlayQueue2.playFrom(index);
+
+	}, 2000);
+	
+  }
+
+  function wave(){
+	$("#guessform").submit(function (e) {
+
+	if(trackcheck==1 && artistcheck==1){
+ 
+	$(".ripple").remove();
+
+  // Setup
+  var posX = $(this).offset().left,
+      posY = $(this).offset().top,
+      buttonWidth = $(this).width(),
+      buttonHeight =  $(this).height();
+
+  // Add the element
+  $(this).prepend("<span class='ripple'></span>");
+
+
+ // Make it round!
+  if(buttonWidth >= buttonHeight) {
+    buttonHeight = buttonWidth;
+  } else {
+    buttonWidth = buttonHeight; 
+  }
+
+  // Get the center of the element
+  var x = e.pageX - posX - buttonWidth / 2;
+  var y = e.pageY - posY - buttonHeight / 2;
+
+
+  // Add the ripples CSS and start the animation
+  $(".ripple").css({
+    width: buttonWidth,
+    height: buttonHeight,
+    top: y + 'px',
+    left: x + 'px'
+  }).addClass("rippleEffect");
+}
+});
+	console.log("wave");
+	
+  }
+
+
 
   function similarity(s1, s2) {
 	var longer = s1;
@@ -229,3 +327,53 @@ function shuffle(array) {
 	}
 	return costs[s2.length];
   }
+
+  function getTimeAdd(timeadd){
+	var aujourdhui = new Date();
+	//alert(aujourdhui.getSeconds());
+	aujourdhui.setSeconds(aujourdhui.getSeconds()+timeadd);
+	var time = parseInt(aujourdhui.getTime() / 1000, 10);
+	return time;
+
+  }
+
+  function resetTA(){
+	  artistcheck=0;
+	  trackcheck=0;
+	$(document).ready(function() {
+		$("#artistvisual").text("Track");
+		$("#artistvisual").css("color", "")
+		$("#artistvisual").css("font-weight", "");
+		$("#trackvisual").text("Artist");
+		$("#trackvisual").css("color", "")
+		$("#trackvisual").css("font-weight", "");
+	});
+  }
+
+  function decompte(time){
+		var aujourdhui = new Date();
+		time_tmp = parseInt(aujourdhui.getTime() / 1000, 10);
+		restant = time - time_tmp;
+
+		console.log("time : "+time+" | time_tmp : "+time_tmp+" | restant : "+restant);
+		
+		jour = parseInt((restant / (60 * 60 * 24)), 10);
+		heure = parseInt((restant / (60 * 60) - jour * 24), 10);
+		minute = parseInt((restant / 60 - jour * 24 * 60 - heure * 60), 10);
+		seconde = parseInt((restant - jour * 24 * 60 * 60 - heure * 60 * 60 - minute * 60), 10);
+		
+		if(restant==0){
+			console.log("TOP");
+			seconde="Good luck!";
+			console.log(seconde);
+		}
+
+		document.getElementById('secondes').innerHTML = seconde;
+
+		
+		
+		if (time_tmp < time){
+			//setTimeout('decompte(time)', 1000);
+			setTimeout(() => {decompte(time)}, 1000);
+		}
+	}

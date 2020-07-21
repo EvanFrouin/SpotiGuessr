@@ -89,7 +89,19 @@
 				audiotag.src='';
 				audiotag.play();
 				audiotag.pause();
-
+/*
+				 API.getTrack(trackid).then(function(trackdata) {
+					console.log('playback got track', trackdata);
+					createAndPlayAudio(trackdata.preview_url, function() {
+						_trackdata = trackdata;
+						_progress = 0;
+						$rootScope.$emit('playerchanged');
+						$rootScope.$emit('trackprogress');
+						enableTick();
+					});
+					});
+					*/
+					
 
 				setTimeout(() => {
 					API.getTrack(trackid).then(function(trackdata) {
@@ -103,7 +115,11 @@
 					});
 				});
 			}, 5000);
+
+
+			
 			},
+			
 			stopPlaying: function() {
 				_playing = false;
 				_track = '';

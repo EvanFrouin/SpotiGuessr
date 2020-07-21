@@ -1,6 +1,6 @@
 <html ng-app="PlayerApp">
 	<head>
-		<title>Thirtify</title>
+		<title>SpotiGuessr</title>
 		<link rel="stylesheet" href="style.css" />
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
 		<script src="bower_components/angular/angular.js"></script>
@@ -30,6 +30,13 @@
 		<script src="controllers/browse.js"></script>
 		<script src="controllers/browsecategory.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+		<link href="stylesheet" type="text/css" href="ripple/ripple.min.css">
+		<script src="ripple/ripple.min.js"></script>
+
+
+
+
 	</head>
 	<body ng-controller="AppController">
 		<div class="fullview playerview" ng-show="showplayer">
@@ -65,6 +72,7 @@
 								
 								</li>
 							</ul>
+							<!--
 							<b><a href="#/me">PLAYLISTS</a></b>
 							<ul class="menuitems">
 								<li ng-repeat="pl in playlists track by pl.id" ng-context-menu="menuOptions(pl)" ng-class="getClass('/users/{{pl.username}}/playlists/{{pl.id}}')">
@@ -75,14 +83,19 @@
 								
 								</li>
 							</ul>
+							-->
 						</div>
 					</div>
-					<div class="mainview">
+					<div class="mainview" id="mainview">
 						<div ng-view></div>
 					</div>
 				</div>
 				<div class="bottomgroup">
 					<div class="leftcontrols">
+						
+						<!--<div>
+							<h3>SpotiGuessr</h3>
+						</div>-->
 						<div class="prevbutton">
 							<a ng-click="prev()"><img src="images/btn-prev.png" /></a>
 						</div>
@@ -95,6 +108,9 @@
 						<div class="nextbutton">
 							<a ng-click="next()"><img src="images/btn-next.png" /></a>
 						</div>
+						
+
+						
 
 						<div class="volume">
 							<input type="range" ng-change="changevolume()" min="0" max="100" ng-model="volume" />
@@ -121,11 +137,19 @@
 			<div ng-controller="LoginController">
 				<div class="centered">
 					<div class="inner">
-						<h1>Thirtify</h1>
+						<div class="guesscenter">
+						<h1>SpotiGuessr</h1>
+						</div>
+						<div class="guesscenter">
 						<p>
-							This demo explores the possibilities with the Web API. To view this demo you need to sign in with your spotify account.
+							Music quiz made with all your spotify playlists !
 						</p>
-						<a ng-click="login()" class="button big green">Login</a>
+					</div>
+						<div class="guesscenter">
+							
+						<a ng-click="login()" class="button big green guesscenter">Login</a>
+							
+						</div>
 					</div>
 				</div>
 			</div>

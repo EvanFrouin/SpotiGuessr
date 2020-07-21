@@ -11,8 +11,11 @@
 	</div>
 </header>
 <body>
-	<div class="centered">
+	<div class="centered" id="game">
 		<div class="innered">
+			<div class="guesscenter">
+				<h1 name="secondes" id="secondes"></h1>
+			</div>
 			<div class="divLeft">
 				<h2 class="headertekst" id="trackvisual">Track</h2>
 
@@ -28,11 +31,11 @@
 
 
 
-			<form name="guessform" class="center" onsubmit="return guessed(guess.value)">
+			<form name="guessform" id="guessform" autocomplete="off" class="center" onsubmit="return guessed(guess.value)">
 				<input type="text" name="guess" onpaste="return false" placeholder="Tape ici le titre ou l'artiste" id="guess" class="guess">
 				</br>
 				</br>
-				<div class="guesscenter">
+				<div id="guessbtn" class="guesscenter">
 					<button type='submit' class="guessbtn ">GUESS</button>
 				</div>
 			</form>

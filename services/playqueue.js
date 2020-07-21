@@ -14,6 +14,10 @@
 				$rootScope.$emit('playqueuechanged');
 				Playback.startPlaying(trackuri);
 			},
+			pause: function() {
+				Playback.pause();
+			},
+			
 			enqueue: function(trackuri) {
 				console.log('Enqueue track', trackuri);
 				_queue.push(trackuri);
