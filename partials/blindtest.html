@@ -13,6 +13,14 @@
 <body>
 	<div class="centered" id="game">
 		<div class="innered">
+			<div class="guesscenter" id="prediv">
+				<h1>{{ data.tracks.total }} songs</h1>
+			</div>
+			<div class="guesscenter" style="display: none;" id="postdiv">
+				<h1 id="indexcount">1</h1>
+				<h1>/</h1>
+				<h1 >{{ data.tracks.total }}</h1>
+			</div>
 			<div class="guesscenter">
 				<h1 name="secondes" id="secondes"></h1>
 			</div>
@@ -36,9 +44,13 @@
 				</br>
 				</br>
 				<div id="guessbtn" class="guesscenter">
-					<button type='submit' class="guessbtn ">GUESS</button>
+					<button type='submit' class="guessbtn" id="guessbtnbtn">GUESS</button>
 				</div>
 			</form>
+			<div id="skipbtn" class="guesscenter">
+				<button type='submit' class="skipbtn" id="skipbtnbtn" onclick="reveal()">SKIP</button>
+			</div>
+			
 	</div>
 </div>
 </body>

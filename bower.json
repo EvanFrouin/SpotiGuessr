@@ -1,7 +1,7 @@
 {
   "name": "player",
   "version": "0.0.0",
-  "homepage": "https://github.com/possan/webapi-player-example",
+  "homepage": "https://github.com/EvanFrouin/SpotiGuessr",
   "license": "MIT",
   "ignore": [
     "**/.*",

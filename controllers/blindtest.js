@@ -5,8 +5,11 @@ var artistsname
 var artistcheck = 0;
 var trackcheck = 0;
 var index = 0;
+var counter = 1;
 var tracksall ;
 var PlayQueue2 ;
+var backtimer;
+var running = 0;
 
 
 (function() {
@@ -81,8 +84,14 @@ var PlayQueue2 ;
 		$scope.playall = function() {
 			artistcheck = 0;
 			trackcheck = 0;
-			
+
+			$(document).ready(function() {
+				$("#prediv").css("display", "none");
+				$("#postdiv").css("display", "flex");
+
+			});
 			decompte(getTimeAdd(5));
+			
 			
 
 			var alltracks = $scope.tracks;
@@ -228,14 +237,36 @@ function shuffle(array) {
 	next();	
   }
 
+  function reveal(){
+	  if(document.getElementById('artistvisual').innerHTML == "Artist"){
+		$(document).ready(function() {
+			$("#artistvisual").text(artistname);
+			$("#artistvisual").css("color", "#ff6000")
+			$("#artistvisual").css("font-weight", "bold");
+		});
+	  }
+	  if(document.getElementById('trackvisual').innerHTML == "Track"){
+		$(document).ready(function() {
+			$("#trackvisual").text(trackname);
+			$("#trackvisual").css("color", "#ff6000")
+			$("#trackvisual").css("font-weight", "bold");
+		});
+	  }
+	  next()
+  }
+
   function next(){
 	PlayQueue2.pause();
+	running=0;
 	setTimeout(() => {
-		index++;
+		resetTA();
+		
 		trackname=tracksname[index];
 		artistname=artistsname[index];
 		console.log("T: "+trackname+" A: "+artistname);
-		resetTA();
+		
+		console.log("COUNTER "+counter);
+		document.getElementById("indexcount").innerHTML = counter;
 		decompte(getTimeAdd(5));
 		PlayQueue2.playFrom(index);
 
@@ -338,19 +369,23 @@ function shuffle(array) {
   }
 
   function resetTA(){
+	index++;
+	counter++;
 	  artistcheck=0;
 	  trackcheck=0;
 	$(document).ready(function() {
-		$("#artistvisual").text("Track");
+		$("#artistvisual").text("Artist");
 		$("#artistvisual").css("color", "")
 		$("#artistvisual").css("font-weight", "");
-		$("#trackvisual").text("Artist");
+		$("#trackvisual").text("Track");
 		$("#trackvisual").css("color", "")
 		$("#trackvisual").css("font-weight", "");
 	});
   }
 
   function decompte(time){
+		document.getElementById("skipbtnbtn").disabled = true; 
+		$("#guessform :input").prop('readonly', true);
 		var aujourdhui = new Date();
 		time_tmp = parseInt(aujourdhui.getTime() / 1000, 10);
 		restant = time - time_tmp;
@@ -373,7 +408,80 @@ function shuffle(array) {
 		
 		
 		if (time_tmp < time){
-			//setTimeout('decompte(time)', 1000);
 			setTimeout(() => {decompte(time)}, 1000);
 		}
+		else{
+			document.getElementById("skipbtnbtn").disabled = false; 
+			$("#guessform :input").prop('readonly', false);
+			document.getElementById("guess").focus();
+			newBackTimer();
+			
+		}
 	}
+
+	function newBackTimer(){
+		running=0;
+		delete backtimer;
+		backtimer = new BackTimer();
+		running=1;
+		backtimer.launch(getTimeAdd(30));
+
+
+	}
+
+	class BackTimer {
+		constructor() {}
+		async launch(time) {
+			if(running==1){
+			var aujourdhui = new Date();
+			time_tmp = parseInt(aujourdhui.getTime() / 1000, 10);
+			restant = time - time_tmp;
+			
+			
+			jour = parseInt((restant / (60 * 60 * 24)), 10);
+			heure = parseInt((restant / (60 * 60) - jour * 24), 10);
+			minute = parseInt((restant / 60 - jour * 24 * 60 - heure * 60), 10);
+			seconde = parseInt((restant - jour * 24 * 60 * 60 - heure * 60 * 60 - minute * 60), 10);
+		
+			console.log("Back restant : "+restant);
+
+			
+			
+			if (time_tmp < time){
+				setTimeout(() => {this.launch(time)}, 1000);
+			}
+			else{
+
+				reveal();
+				/*if(document.getElementById('artistvisual').innerHTML == "Artist"){
+					$(document).ready(function() {
+						$("#artistvisual").text(artistname);
+						$("#artistvisual").css("color", "#ff6000")
+						$("#artistvisual").css("font-weight", "bold");
+					});
+				  }
+				  if(document.getElementById('trackvisual').innerHTML == "Track"){
+					$(document).ready(function() {
+						$("#trackvisual").text(trackname);
+						$("#trackvisual").css("color", "#ff6000")
+						$("#trackvisual").css("font-weight", "bold");
+					});
+				  }
+				setTimeout(() => {
+					resetTA();
+					trackname=tracksname[index];
+					artistname=artistsname[index];
+					console.log("T: "+trackname+" A: "+artistname);				
+					console.log("COUNTER "+counter);
+					document.getElementById("indexcount").innerHTML = counter;
+					decompte(getTimeAdd(5));
+
+				}, 2000);*/
+				//newBackTimer();
+			}
+		}
+		else{
+			console.log("backtimer stopped");
+		}
+		}
+	  }

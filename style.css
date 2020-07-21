@@ -620,13 +620,20 @@ responsive-cover.responsive-cover-playlist {
 	height: 8%;
 	border-radius: 25px;
 	width: 15%;
-
 	text-align: center;
 	background-color: #070;
 	color: #ffffff;
 	font-size: x-large;
+}
 
-
+.skipbtn {
+	height: 6%;
+	border-radius: 25px;
+	width: 10%;
+	text-align: center;
+	background-color: #444;
+	color: #ffffff;
+	font-size: x-large;
 }
 
 .divLeft {
