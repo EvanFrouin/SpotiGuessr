@@ -68,7 +68,11 @@
 		$scope.$on('login', function() {
 			$scope.showplayer = true;
 			$scope.showlogin = false;
-			$location.path('/').replace().reload();
+			
+			setTimeout(() => {
+				window.location.reload();
+
+			}, 50);
 		});
 
 		$scope.$on('logout', function() {

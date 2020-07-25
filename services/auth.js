@@ -7,10 +7,11 @@
 		var CLIENT_ID = '';
 		var REDIRECT_URI = '';
 
-		if (location.host == 'localhost:8000') {
-			CLIENT_ID =	'409f070cb44945d9a85e9b4ad8fa3bf1';
-			REDIRECT_URI = 'http://localhost:8000/callback.html';
-		} else {
+		if (location.host == 'afrouin.ddns.net:8102') {
+			CLIENT_ID =	'bcd80f6621e34fd38bae75105efba1cd';
+			REDIRECT_URI = 'http://afrouin.ddns.net:8102/callback.html';
+		}
+		else {
 			CLIENT_ID = 'bcd80f6621e34fd38bae75105efba1cd';
 			REDIRECT_URI = 'http://192.168.1.102/callback.html';
 		}
