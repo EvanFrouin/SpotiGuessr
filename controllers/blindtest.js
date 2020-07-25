@@ -90,6 +90,7 @@ var found = 0;
 			artistcheck = 0;
 			trackcheck = 0;
 			score = 0;
+			found = 0;
 
 			document.getElementById('launchgame').style.display = "none";
 			document.getElementById('gameview').style.display = "block";
@@ -369,15 +370,9 @@ function shuffle(array) {
 
 		})
 
-	 
-		 
-
-
-
-
-
-
 		EndSound.play();
+		
+
 		//alert("FINITO");
 	}, 1000);
 
