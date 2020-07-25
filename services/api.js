@@ -1,3 +1,6 @@
+var finalplaylist;
+var finaltracks;
+
 (function() {
 
 	var module = angular.module('PlayerApp');
@@ -152,7 +155,8 @@
 						'Authorization': 'Bearer ' + Auth.getAccessToken()
 					}
 				}).success(function(r) {
-					console.log('got playlists', r);
+					console.log('got playlists lol', r);
+					//console.log("length : ");
 					ret.resolve(r);
 				});
 				return ret.promise;
@@ -166,7 +170,38 @@
 					}
 				}).success(function(r) {
 					console.log('got playlist tracks', r);
-					ret.resolve(r);
+					finalplaylist = r;
+
+					console.log("length ", r.items.length);
+					finaltracks = finalplaylist.items;
+					morehund(r, $http, Auth);
+					// if(r.next){
+					// 	$http.get(r.next, {
+					// 		headers: {
+					// 			'Authorization': 'Bearer ' + Auth.getAccessToken()
+					// 		}
+					// 	}).success(function(j) {
+					// 		finalplaylist.items = finalplaylist.items.concat(j.items);
+					// 		console.log("PLAYLIST V2 LENGTH "+finalplaylist.items.length);
+					// 		morehund(j);
+
+
+					// 	});
+
+					// }
+
+					setTimeout(() => {
+						console.log('got playlist tracks v22', finaltracks);
+						showplay();
+						ret.resolve(finaltracks);
+			
+					}, 200);
+
+
+
+					
+					
+					//ret.resolve(r);
 				});
 				return ret.promise;
 			},
@@ -535,3 +570,21 @@ function compareValues(key, order = 'asc') {
 	  );
 	};
   }
+
+function morehund(r, $http, Auth){
+	if(r.next){
+		$http.get(r.next, {
+			headers: {
+				'Authorization': 'Bearer ' + Auth.getAccessToken()
+			}
+		}).success(function(j) {
+			finaltracks = finaltracks.concat(j.items);
+			console.log("NEXT UP ",finaltracks);
+			//console.log("PLAYLIST V2 LENGTH "+finalplaylist.items.length);
+			morehund(j, $http, Auth);
+
+
+		});
+
+	}
+}

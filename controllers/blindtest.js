@@ -46,12 +46,16 @@ var found = 0;
 		});
 
 		API.getPlaylistTracks($scope.username, $scope.playlist).then(function(list) {
-			console.log('got playlist tracks', list);
+			//list.limit = null;
+			console.log('got playlist tracks lol', list);
+			
+			console.log('got playlist tracks length ');
 			var tot = 0;
-			list.items.forEach(function(track) {
+			list.forEach(function(track) {
 				tot += track.track.duration_ms;
 			});
-			$scope.tracks = list.items;
+			$scope.tracks = list;
+			console.log('got tracks lol', list);
 			console.log('tot', tot);
 			$scope.total_duration = tot;
 
@@ -543,6 +547,13 @@ function shuffle(array) {
 		return cleaned;
 	}
 
+	function showplay(){
+		document.getElementById('launchgamebtnbtn').style.display = "block";
+	
+	}
+
+
+
 	class BackTimer {
 		constructor() {}
 		async launch(time) {
@@ -575,3 +586,5 @@ function shuffle(array) {
 		}
 		}
 	  }
+
+	  

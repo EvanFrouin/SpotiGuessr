@@ -28,10 +28,9 @@
 				<div>
 					<div class="divLeft"> 
 						<div class="guesscenter">
-							<h2 id="indexcount">1</h1>
+							<h2 id="indexcount">1</h2>
 							<h2>/</h1>
-							<h2 ng-if="data.tracks.total<100" >{{ data.tracks.total }}</h1>
-							<h2 ng-if="data.tracks.total>=100" >100</h1>
+							<h2>{{ data.tracks.total }}</h2>
 						</div>
 					</div>
 					<div class="divRight">
@@ -65,7 +64,7 @@
 				</div>
 			</div>
 			<div id="launchgame" class="guesscenter">
-				<a ng-click="playall()" class="launchgamebtn">PLAY</a>
+				<a ng-click="playall()"  style="display:none" id="launchgamebtnbtn"class="launchgamebtn">PLAY</a>
 			</div>		
 	</div>
 	
@@ -80,8 +79,8 @@
 		<div class="guesscenter">
 			<h1 id="foundcount">0</h1>
 			<h1>/</h1>
-			<h1 ng-if="data.tracks.total<100" >{{ data.tracks.total }}</h1>
-			<h1 ng-if="data.tracks.total>=100" >100</h1>
+			<h1>{{ data.tracks.total }}</h1>
+			
 		</div>
 		
 	</div>
