@@ -1,57 +1,92 @@
-<header>
-	<playlist-cover ng-model="data" width="200"></playlist-cover>
-	<h4 ng-show="data.collaborative">COLLABORATIVE PLAYLIST</h4>
-	<h4 ng-hide="data.collaborative">PLAYLIST</h4>
-	<h1>{{data.name}}</h1>
-	<p ng-bind-html="playlistDescription"></p>
-	<div class="follower-count">{{data.followers.total | number}} followers</div>
 
-	<div class="buttons">
-		<a ng-click="playall()" class="button green">PLAY</a>
-	</div>
-</header>
-<body>
-	<div class="centered" id="game">
-		<div class="innered">
+<body onload="picturepl();">
+	
+		<div class="divLeft">
+			<h1 >{{data.name}}</h1>	
+		</div>
+		
+		<div class="divRight">
 			<div class="guesscenter" id="prediv">
 				<h1>{{ data.tracks.total }} songs</h1>
-			</div>
-			<div class="guesscenter" style="display: none;" id="postdiv">
-				<h1 id="indexcount">1</h1>
-				<h1>/</h1>
-				<h1 >{{ data.tracks.total }}</h1>
-			</div>
-			<div class="guesscenter">
-				<h1 name="secondes" id="secondes"></h1>
-			</div>
-			<div class="divLeft">
-				<h2 class="headertekst" id="trackvisual">Track</h2>
-
-
-			</div>
-			<div class="divRight">
-				<h2 class="headertekst" id="artistvisual">Artist</h2>
-
-
-
-			</div>
-		
-
-
-
-			<form name="guessform" id="guessform" autocomplete="off" class="center" onsubmit="return guessed(guess.value)">
-				<input type="text" name="guess" onpaste="return false" placeholder="Tape ici le titre ou l'artiste" id="guess" class="guess">
-				</br>
-				</br>
-				<div id="guessbtn" class="guesscenter">
-					<button type='submit' class="guessbtn" id="guessbtnbtn">GUESS</button>
-				</div>
-			</form>
-			<div id="skipbtn" class="guesscenter">
-				<button type='submit' class="skipbtn" id="skipbtnbtn" onclick="reveal()">SKIP</button>
+				
 			</div>
 			
+		</div>
+	
+		
+		<img id="coverpl" class="coverpl center" src="{{data.images[0].url}}"/>
+		
+	<div class="centered" id="game">
+		<div class="innered">
+			
+			
+
+			<div id="gameview" style="display:none">
+				<div class="guesscenter">
+					<h1 style="color:#070; font-weight: bold;"id="scorecount">0</h1>
+				</div>
+				<div>
+					<div class="divLeft"> 
+						<div class="guesscenter">
+							<h2 id="indexcount">1</h1>
+							<h2>/</h1>
+							<h2 ng-if="data.tracks.total<100" >{{ data.tracks.total }}</h1>
+							<h2 ng-if="data.tracks.total>=100" >100</h1>
+						</div>
+					</div>
+					<div class="divRight">
+						<div class="guesscenter">
+							<h2 name="secondes" id="secondes"></h1>
+						</div>
+						
+					</div>
+				</div>
+
+				
+
+
+
+				<div class="divLeft" id="divLeft"> 
+					<h2 class="headertekst" id="trackvisual">Track</h2>
+				</div>
+				<div class="divRight" id="divRight">
+					<h2 class="headertekst" id="artistvisual">Artist</h2>
+				</div>
+				<form name="guessform" id="guessform" autocomplete="off" class="center" onsubmit="return guessed(guess.value)">
+					<input type="text" name="guess" onpaste="return false" placeholder="Tape ici le titre ou l'artiste" id="guess" class="guess">
+					</br>
+					</br>
+					<div id="guessbtn" class="guesscenter">
+						<button type='submit' style="display: none;" class="guessbtn" id="guessbtnbtn">GUESS</button>
+					</div>
+				</form>
+				<div id="skipbtn" class="guesscenter">
+					<button type='submit' class="skipbtn" id="skipbtnbtn" onclick="reveal()">SKIP</button>
+				</div>
+			</div>
+			<div id="launchgame" class="guesscenter">
+				<a ng-click="playall()" class="launchgamebtn">PLAY</a>
+			</div>		
 	</div>
+	
+	<div id="dialog-end" title="Congrats!" style="display:none;">
+		<div class="guesscenter">
+			<h1>Final Score</h1>
+		</div>
+		<div class="guesscenter">
+			<h1 id="score">0</h1>
+		</div>
+
+		<div class="guesscenter">
+			<h1 id="foundcount">0</h1>
+			<h1>/</h1>
+			<h1 ng-if="data.tracks.total<100" >{{ data.tracks.total }}</h1>
+			<h1 ng-if="data.tracks.total>=100" >100</h1>
+		</div>
+		
+	</div>
+
+	   
 </div>
 </body>
 

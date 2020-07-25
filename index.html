@@ -18,21 +18,15 @@
 		<script src="filters/timeago.js"></script>
 		<script src="controllers/player.js"></script>
 		<script src="controllers/login.js"></script>
-		<script src="controllers/playlist.js"></script>
 		<script src="controllers/blindtest.js"></script>
 		<script src="controllers/home.js"></script>
-		<script src="controllers/artist.js"></script>
-		<script src="controllers/album.js"></script>
 		<script src="controllers/user.js"></script>
 		<script src="controllers/usertracks.js"></script>
 		<script src="controllers/playqueue.js"></script>
-		<script src="controllers/searchresults.js"></script>
 		<script src="controllers/browse.js"></script>
-		<script src="controllers/browsecategory.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
-		<link href="stylesheet" type="text/css" href="ripple/ripple.min.css">
-		<script src="ripple/ripple.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 
 
 
@@ -42,57 +36,24 @@
 		<div class="fullview playerview" ng-show="showplayer">
 			<div ng-controller="PlayerController">
 				<div class="topgroup">
-					<div class="searchbox">
+					<!-- <div class="searchbox">
 						<input type="text" ng-model="query" ng-change="loadsearch()" ng-keyup="loadsearch()" placeholder="Search..." />
-					</div>
+					</div> -->
 					<div class="titlebox">
-						<a href="#/home">SpotiGuessr</a>
+						<a href="#/home" onclick="killpq();">SpotiGuessr</a>
 					</div>
-					<div class="userbox">
-						Signed in as <b><a href="#/users/{{profileUsername}}">{{profileName}}</a></b>
-						<a ng-click="logout()">Log out</a>
+					<div class="userbox"  style="margin-top: 3px;">
+						<a ng-click="logout()" class="button green">Log Out</a>
 					</div>
 				</div>
 				<div class="midgroup">
-					<div class="menuview">
-						<div class="list scrollable">
-							<b><a href="#/">MAIN</a></b>
-							<ul class="menuitems">
-								<li><a href="#/" ng-class="getClass('/')">Browse</a></li>
-							</ul>
-							
-							<b><a href="#/me">BLIND TEST</a></b>
-							<ul class="menuitems">
-								<li ng-repeat="pl in playlists track by pl.id" ng-context-menu="menuOptions(pl)" ng-class="getClass('/users/{{pl.username}}/playlists/{{pl.id}}')">
-									<a href="#/users/{{pl.username}}/playlists/{{pl.id}}/blindtest">{{pl.name}}</a> 
-									<input focus-me="focusInput" ng-blur="playlistNameBlur(pl)" ng-if="pl.editing" class="edit" type="text" value="{{pl.name}}" name="title" ng-keyup="playlistNameKeyUp($event, pl)">
-								
-								</li>
-							</ul>
-							<!--
-							<b><a href="#/me">PLAYLISTS</a></b>
-							<ul class="menuitems">
-								<li ng-repeat="pl in playlists track by pl.id" ng-context-menu="menuOptions(pl)" ng-class="getClass('/users/{{pl.username}}/playlists/{{pl.id}}')">
-									<a href="#/users/{{pl.username}}/playlists/{{pl.id}}" ng-if="!pl.editing">
-										{{pl.name}}
-									</a>
-									<input focus-me="focusInput" ng-blur="playlistNameBlur(pl)" ng-if="pl.editing" class="edit" type="text" value="{{pl.name}}" name="title" ng-keyup="playlistNameKeyUp($event, pl)">
-								
-								</li>
-							</ul>
-							-->
-						</div>
-					</div>
 					<div class="mainview" id="mainview">
 						<div ng-view></div>
 					</div>
 				</div>
 				<div class="bottomgroup">
 					<div class="leftcontrols">
-						
-						<!--<div>
-							<h3>SpotiGuessr</h3>
-						</div>-->
+
 						<div class="prevbutton">
 							<a ng-click="prev()"><img src="images/btn-prev.png" /></a>
 						</div>

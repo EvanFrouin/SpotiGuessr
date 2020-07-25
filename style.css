@@ -80,7 +80,7 @@ hr {
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	height: 40px;
+	height: 60px;
 	width: 100%;
 	background-color: #222326;
 	border-bottom: 1px solid #393b40;
@@ -119,14 +119,24 @@ hr {
 	left: 150px;
 	right: 150px;
 	top: 0px;
+	font-size: x-large;
+	font-weight: bolder;
+	color:#FFFFFF;
 	text-align: center;
 	padding: 12px;
 }
 
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+  }
+
 .midgroup {
 	position: absolute;
 	left: 0px;
-	top: 40px;
+	top: 60px;
 	bottom: 40px;
 	width: 100%;
 	overflow: hidden;
@@ -283,7 +293,7 @@ hr {
 
 .mainview {
 	position: absolute;
-	left: 220px;
+	left: 10px;
 	top: 0px;
 	right: 0px;
 	bottom: 0px;
@@ -616,6 +626,7 @@ responsive-cover.responsive-cover-playlist {
 
 }
 
+
 .guessbtn {
 	height: 8%;
 	border-radius: 25px;
@@ -624,6 +635,18 @@ responsive-cover.responsive-cover-playlist {
 	background-color: #070;
 	color: #ffffff;
 	font-size: x-large;
+}
+
+.launchgamebtn {
+	height: 10%;
+	border-radius: 25px;
+	width: 35%;
+	margin-top: 150px;
+	padding-top: 20px;
+	text-align: center;
+	background-color: #070;
+	color: #ffffff;
+	font-size: xx-large;
 }
 
 .skipbtn {
@@ -636,6 +659,25 @@ responsive-cover.responsive-cover-playlist {
 	font-size: x-large;
 }
 
+.coverpl {
+	height: 200px;
+	border-radius: 25px;
+	width: 200px;
+}
+
+
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+
 .divLeft {
 	height: 15%;
     width:50%;
@@ -647,6 +689,21 @@ responsive-cover.responsive-cover-playlist {
 	height: 15%;
     width:50%;
 	display:block;
+	text-align: center;
+    float: right;
+}
+
+.divLeft2 {
+	height: 15%;
+    width:50%;
+	display:flex;
+	text-align: center;
+    float: left;
+}
+.divRight2 {
+	height: 15%;
+    width:50%;
+	display:flex;
 	text-align: center;
     float: right;
 }
@@ -695,4 +752,69 @@ h2.headertekst {
 	}
   }
 
+
+  .ui-dialog {
+	top: 0;
+	left: 0;
+	padding: .2em;
+    border:1px;
+    
+}
+.ui-dialog .ui-dialog-titlebar {
+    border:1px;
+    display: none;
+}
+.ui-dialog .ui-dialog-content {
+	border: 0;
+	padding: 20px;
+    font-size:18px;
+    color:#323438;
+    background-color: #323438;
+	overflow: auto;
+}
+.ui-dialog .ui-dialog-buttonpane {
+	text-align: left;
+	border-width: 1px 0 0 0;
+	background-image: none;
+	margin-top: .5em;
+	padding: .3em 1em .5em .4em;
+    background-color: #FFFFFF;
+}
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+	float: right;
+    
+}
+.ui-dialog .ui-dialog-buttonpane button {
+	margin: .5em .4em .5em 0;
+	cursor: pointer;
+    
+}
+.ui-dialog .ui-resizable-se {
+	width: 12px;
+	height: 12px;
+	right: -5px;
+	bottom: -5px;
+	background-position: 16px 16px;
+    
+}
+.ui-draggable-handle {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .yescls
+{
+    font-size:15px;
+    color: #FFFFFF;
+    width: 150px;
+    background: #070;
+    
+}
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .cancelcls
+{
+    font-size:15px;
+    color: #FFFFFF;
+    width: 150px;
+    background: #070;
+    
+}
 

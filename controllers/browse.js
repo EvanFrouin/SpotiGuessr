@@ -26,9 +26,9 @@
         ':' + pad( 0 )
     }
 
-    API.getFeaturedPlaylists(Auth.getUserCountry(), isoString(new Date())).then(function(results) {
-      $scope.featuredPlaylists = results.playlists.items;
-      $scope.message = results.message;
+    API.getPlaylists($scope.profileUsername).then(function(userplaylists) {
+      var pl = userplaylists.sort(compareValues('name'));
+      $scope.featuredPlaylists = pl;
     });
 
     API.getNewReleases(Auth.getUserCountry()).then(function(results) {

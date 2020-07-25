@@ -1,7 +1,7 @@
 var trackname ="null";
 var artistname ="null";
 var tracksname;
-var artistsname
+var artistsname;
 var artistcheck = 0;
 var trackcheck = 0;
 var index = 0;
@@ -10,6 +10,10 @@ var tracksall ;
 var PlayQueue2 ;
 var backtimer;
 var running = 0;
+var score = 0;
+var found = 0;
+
+
 
 
 (function() {
@@ -82,21 +86,22 @@ var running = 0;
 		};
 
 		$scope.playall = function() {
+			
 			artistcheck = 0;
 			trackcheck = 0;
+			score = 0;
 
-			$(document).ready(function() {
-				$("#prediv").css("display", "none");
-				$("#postdiv").css("display", "flex");
-
-			});
+			document.getElementById('launchgame').style.display = "none";
+			document.getElementById('gameview').style.display = "block";
+			
 			decompte(getTimeAdd(5));
 			
 			
 
 			var alltracks = $scope.tracks;
 			var shuffled = shuffle(alltracks);
-			tracksall=shuffled;
+			tracksall = shuffled;
+			
 			
 			var trackuris =shuffled.map(function(track) {
 				return track.track.uri;
@@ -108,13 +113,17 @@ var running = 0;
 				return track.track.artists[0].name;
 			});
 
-			console.log("ICI "+tracksname);
-			console.log("LA "+artistsname);
+
+			console.log("AVANT "+tracksname);
+			tracksname=clean(tracksname);
+
+			console.log("TRACKS "+tracksname);
+			console.log("ARTISTS "+artistsname);
 
 			
 			PlayQueue.clear();
 			//shuffled = shuffle(trackuris);
-			console.log("shuffle",shuffled);
+			//console.log("shuffle",shuffled);
 			trackname=$scope.tracks[0].track.name;
 			artistname=$scope.tracks[0].track.artists[0].name;
 			//alert(shuffled)
@@ -162,6 +171,7 @@ var running = 0;
 
 })();
 
+
 function shuffle(array) {
 	var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -183,8 +193,8 @@ function shuffle(array) {
 
   function guessed(rep){
 	
-	var WrongSound = new Audio('sound/wrong.mp3')
-	var CorrectSound = new Audio('sound/correct.mp3')
+	var WrongSound = new Audio('sound/wrong.mp3');
+	var CorrectSound = new Audio('sound/correct.mp3');
 
 	
 
@@ -195,9 +205,10 @@ function shuffle(array) {
 		//alert("Track Ok");
 		$(document).ready(function() {
 			$("#trackvisual").text(trackname);
-			$("#trackvisual").css("color", "#070")
+			$("#trackvisual").css("color", "#070");
 			$("#trackvisual").css("font-weight", "bold");
 			CorrectSound.play();
+			scoreadd(1);
 			wave();
 		});
 		trackcheck=1;
@@ -209,9 +220,10 @@ function shuffle(array) {
 		//alert("Artist Ok");
 		$(document).ready(function() {
 			$("#artistvisual").text(artistname);
-			$("#artistvisual").css("color", "#070")
+			$("#artistvisual").css("color", "#070");
 			$("#artistvisual").css("font-weight", "bold");
 			CorrectSound.play();
+			scoreadd(1);
 			wave();
 		});
 		artistcheck=1;
@@ -232,23 +244,47 @@ function shuffle(array) {
 	
   }
 
+  function killpq(){
+	  if(PlayQueue2){
+		PlayQueue2.pause();
+		running=0;
+		delete backtimer;
+
+	  }
+	  }
+
   function win(){
+	foundadd(1);
+	scoreadd(1);
 	document.getElementById('secondes').innerHTML = "Nice one !";
 	next();	
   }
+
+  function scoreadd(point){
+	  score += point;
+	  document.getElementById('score').innerHTML = score;
+	  document.getElementById('scorecount').innerHTML = score;
+	  console.log("Score :"+score);
+  }
+
+  function foundadd(i){
+	found += i;
+	document.getElementById('foundcount').innerHTML = found;
+	console.log("Found :"+found);
+}
 
   function reveal(){
 	  if(document.getElementById('artistvisual').innerHTML == "Artist"){
 		$(document).ready(function() {
 			$("#artistvisual").text(artistname);
-			$("#artistvisual").css("color", "#ff6000")
+			$("#artistvisual").css("color", "#ff6000");
 			$("#artistvisual").css("font-weight", "bold");
 		});
 	  }
 	  if(document.getElementById('trackvisual').innerHTML == "Track"){
 		$(document).ready(function() {
 			$("#trackvisual").text(trackname);
-			$("#trackvisual").css("color", "#ff6000")
+			$("#trackvisual").css("color", "#ff6000");
 			$("#trackvisual").css("font-weight", "bold");
 		});
 	  }
@@ -256,22 +292,95 @@ function shuffle(array) {
   }
 
   function next(){
-	PlayQueue2.pause();
-	running=0;
-	setTimeout(() => {
-		resetTA();
-		
-		trackname=tracksname[index];
-		artistname=artistsname[index];
-		console.log("T: "+trackname+" A: "+artistname);
-		
-		console.log("COUNTER "+counter);
-		document.getElementById("indexcount").innerHTML = counter;
-		decompte(getTimeAdd(5));
-		PlayQueue2.playFrom(index);
+	if(counter<tracksname.length){
+		PlayQueue2.pause();
+		running=0;
+		setTimeout(() => {
+			resetTA();
+			
+			trackname=tracksname[index];
+			artistname=artistsname[index];
+			console.log("T: "+trackname+" A: "+artistname);
+			
+			console.log("COUNTER "+counter);
+			document.getElementById("indexcount").innerHTML = counter;
+			decompte(getTimeAdd(5));
+			PlayQueue2.playFrom(index);
 
-	}, 2000);
-	
+		}, 2000);
+	}
+	else{
+		endGame();
+		
+		
+		
+	}
+  }
+
+  function endGame(){
+	var EndSound = new Audio('sound/end.mp3');
+
+	setTimeout(() => {
+		PlayQueue2.pause();
+		running=0;
+		delete backtimer;
+
+		
+
+		$(function(){
+			$("#dialog-end").dialog({
+				autoOpen:false,
+				width: 350,
+				modal: true,
+				buttons: [
+					{
+						text: 'Home',
+						open: function() { $(this).addClass('yescls') },
+						click: function() { 
+							$("#dialog-end").dialog("close");
+							document.location.href="#/home"; 
+							}
+					},
+					{
+						text: "Replay",
+						open: function() { $(this).addClass('cancelcls') },
+						click: function() { 
+							window.location.reload();
+							$("#dialog-end").dialog("close");
+						 }
+					}
+				  ],
+				
+					  
+					  show: {
+						effect: "highlight",
+						duration: 1500
+					  },
+					  hide: {
+						effect: "fade",
+						duration: 1000
+					  }
+				
+			});
+		
+			$("#dialog-end").dialog("open");
+
+
+
+		})
+
+	 
+		 
+
+
+
+
+
+
+		EndSound.play();
+		//alert("FINITO");
+	}, 1000);
+
   }
 
   function wave(){
@@ -429,6 +538,16 @@ function shuffle(array) {
 
 	}
 
+	function clean(rtracksname){
+		var cleaned=rtracksname;
+		for(var i =0;i<rtracksname.length;i++){
+			cleaned[i] = cleaned[i].replace(/[(].*[)]|- .*/gm, '');
+			
+		}
+		//console.log("V2 "+cleaned);
+		return cleaned;
+	}
+
 	class BackTimer {
 		constructor() {}
 		async launch(time) {
@@ -453,31 +572,7 @@ function shuffle(array) {
 			else{
 
 				reveal();
-				/*if(document.getElementById('artistvisual').innerHTML == "Artist"){
-					$(document).ready(function() {
-						$("#artistvisual").text(artistname);
-						$("#artistvisual").css("color", "#ff6000")
-						$("#artistvisual").css("font-weight", "bold");
-					});
-				  }
-				  if(document.getElementById('trackvisual').innerHTML == "Track"){
-					$(document).ready(function() {
-						$("#trackvisual").text(trackname);
-						$("#trackvisual").css("color", "#ff6000")
-						$("#trackvisual").css("font-weight", "bold");
-					});
-				  }
-				setTimeout(() => {
-					resetTA();
-					trackname=tracksname[index];
-					artistname=artistsname[index];
-					console.log("T: "+trackname+" A: "+artistname);				
-					console.log("COUNTER "+counter);
-					document.getElementById("indexcount").innerHTML = counter;
-					decompte(getTimeAdd(5));
-
-				}, 2000);*/
-				//newBackTimer();
+				
 			}
 		}
 		else{

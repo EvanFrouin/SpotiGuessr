@@ -20,29 +20,9 @@
 				templateUrl: 'partials/usertracks.html',
 				controller: 'UserTracksController'
 			}).
-			when('/users/:username/playlists/:playlist', {
-				templateUrl: 'partials/playlist.html',
-				controller: 'PlaylistController'
-			}).
 			when('/users/:username/playlists/:playlist/blindtest', {
 				templateUrl: 'partials/blindtest.html',
 				controller: 'BlindTestController'
-			}).
-			when('/artists/:artist', {
-				templateUrl: 'partials/artist.html',
-				controller: 'ArtistController'
-			}).
-			when('/albums/:album', {
-				templateUrl: 'partials/album.html',
-				controller: 'AlbumController'
-			}).
-			when('/search', {
-				templateUrl: 'partials/searchresults.html',
-				controller: 'SearchResultsController'
-			}).
-			when('/category/:categoryid', {
-				templateUrl: 'partials/browsecategory.html',
-				controller: 'BrowseCategoryController'
 			}).
 			otherwise({
 				redirectTo: '/'
