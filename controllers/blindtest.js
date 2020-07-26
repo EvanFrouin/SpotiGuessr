@@ -46,7 +46,6 @@ var found = 0;
 		});
 
 		API.getPlaylistTracks($scope.username, $scope.playlist).then(function(list) {
-			//list.limit = null;
 			console.log('got playlist tracks lol', list);
 			
 			console.log('got playlist tracks length ');
@@ -129,8 +128,8 @@ var found = 0;
 			PlayQueue.clear();
 			//shuffled = shuffle(trackuris);
 			//console.log("shuffle",shuffled);
-			trackname=$scope.tracks[0].track.name;
-			artistname=$scope.tracks[0].track.artists[0].name;
+			trackname=tracksname[0];
+			artistname=artistsname[0];
 			//alert(shuffled)
 			
 			PlayQueue.enqueueList(trackuris);
@@ -206,7 +205,7 @@ function shuffle(array) {
 	//console.log(trackname);
 	//alert(similarity(rep,trackname));
 
-	if(similarity(rep,trackname)>0.75){
+	if(similarity(rep.toLowerCase(),trackname.toLowerCase())>0.75){
 		//alert("Track Ok");
 		$(document).ready(function() {
 			$("#trackvisual").text(trackname);
@@ -221,7 +220,7 @@ function shuffle(array) {
 
 	//alert(similarity(rep,artistname));
 
-	if(similarity(rep,artistname)>0.75){
+	if(similarity(rep.toLowerCase(),artistname.toLowerCase())>0.75){
 		//alert("Artist Ok");
 		$(document).ready(function() {
 			$("#artistvisual").text(artistname);
@@ -234,7 +233,7 @@ function shuffle(array) {
 		artistcheck=1;
 	}
 
-	if(similarity(rep,artistname)<0.75 && similarity(rep,trackname)<0.75){
+	if(similarity(rep.toLowerCase(),artistname.toLowerCase())<0.75 && similarity(rep.toLowerCase(),trackname.toLowerCase())<0.75){
 		WrongSound.play();
 		$(document).ready(function() {
 			$("#guess").effect("shake", {times:1}, 350);
@@ -324,6 +323,7 @@ function shuffle(array) {
 
   function endGame(){
 	var EndSound = new Audio('sound/end.mp3');
+	document.getElementById('foundprc').innerHTML = (found/counter)*100;
 
 	setTimeout(() => {
 		PlayQueue2.pause();
@@ -342,14 +342,19 @@ function shuffle(array) {
 						text: 'Home',
 						open: function() { $(this).addClass('yescls') },
 						click: function() { 
+							score = 0;
+							found = 0;
 							$("#dialog-end").dialog("close");
 							document.location.href="#/home"; 
+							window.location.reload();
 							}
 					},
 					{
 						text: "Replay",
 						open: function() { $(this).addClass('cancelcls') },
 						click: function() { 
+							score = 0;
+							found = 0;
 							window.location.reload();
 							$("#dialog-end").dialog("close");
 						 }
@@ -384,44 +389,29 @@ function shuffle(array) {
 
   function wave(){
 	$("#guessform").submit(function (e) {
-
 	if(trackcheck==1 && artistcheck==1){
- 
 	$(".ripple").remove();
-
-  // Setup
-  var posX = $(this).offset().left,
-      posY = $(this).offset().top,
-      buttonWidth = $(this).width(),
-      buttonHeight =  $(this).height();
-
-  // Add the element
-  $(this).prepend("<span class='ripple'></span>");
-
-
- // Make it round!
-  if(buttonWidth >= buttonHeight) {
-    buttonHeight = buttonWidth;
-  } else {
-    buttonWidth = buttonHeight; 
-  }
-
-  // Get the center of the element
-  var x = e.pageX - posX - buttonWidth / 2;
-  var y = e.pageY - posY - buttonHeight / 2;
-
-
-  // Add the ripples CSS and start the animation
-  $(".ripple").css({
-    width: buttonWidth,
-    height: buttonHeight,
-    top: y + 'px',
-    left: x + 'px'
-  }).addClass("rippleEffect");
-}
-});
-	console.log("wave");
-	
+  	var posX = $(this).offset().left,
+	posY = $(this).offset().top,
+	buttonWidth = $(this).width(),
+	buttonHeight =  $(this).height();
+  	$(this).prepend("<span class='ripple'></span>");
+	if(buttonWidth >= buttonHeight) {
+		buttonHeight = buttonWidth;
+	} else {
+		buttonWidth = buttonHeight; 
+	}
+	var x = e.pageX - posX - buttonWidth / 2;
+	var y = e.pageY - posY - buttonHeight / 2;
+ 	$(".ripple").css({
+		width: buttonWidth,
+		height: buttonHeight,
+		top: y + 'px',
+		left: x + 'px'
+	}).addClass("rippleEffect");
+	}
+	});
+	console.log("wave");		
   }
 
 
@@ -439,6 +429,7 @@ function shuffle(array) {
 	}
 	return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
   } 
+
 
   function editDistance(s1, s2) {
 	s1 = s1.toLowerCase();
@@ -493,6 +484,7 @@ function shuffle(array) {
 
   function decompte(time){
 		document.getElementById("skipbtnbtn").disabled = true; 
+		document.getElementById('myBar').style.width= 0;
 		$("#guessform :input").prop('readonly', true);
 		var aujourdhui = new Date();
 		time_tmp = parseInt(aujourdhui.getTime() / 1000, 10);
@@ -512,9 +504,6 @@ function shuffle(array) {
 		}
 
 		document.getElementById('secondes').innerHTML = seconde;
-
-		
-		
 		if (time_tmp < time){
 			setTimeout(() => {decompte(time)}, 1000);
 		}
@@ -540,10 +529,10 @@ function shuffle(array) {
 	function clean(rtracksname){
 		var cleaned=rtracksname;
 		for(var i =0;i<rtracksname.length;i++){
-			cleaned[i] = cleaned[i].replace(/[(].*[)]|- .*/gm, '');
-			
+			if(cleaned[i].replace(/[(].*[)]|- .*/gm, '')!=""){
+				cleaned[i] = cleaned[i].replace(/[(].*[)]|- .*/gm, '');
+			}	
 		}
-		//console.log("V2 "+cleaned);
 		return cleaned;
 	}
 
@@ -567,8 +556,13 @@ function shuffle(array) {
 			heure = parseInt((restant / (60 * 60) - jour * 24), 10);
 			minute = parseInt((restant / 60 - jour * 24 * 60 - heure * 60), 10);
 			seconde = parseInt((restant - jour * 24 * 60 * 60 - heure * 60 * 60 - minute * 60), 10);
+
+			var nwidth = (30 - restant)*100/30+"%";
 		
 			console.log("Back restant : "+restant);
+			console.log("CurWidth :"+document.getElementById('myBar').style.width+" new :"+nwidth);
+
+			document.getElementById('myBar').style.width= nwidth;
 
 			
 			

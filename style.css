@@ -137,7 +137,7 @@ hr {
 	position: absolute;
 	left: 0px;
 	top: 60px;
-	bottom: 40px;
+	bottom: 0px;
 	width: 100%;
 	overflow: hidden;
 }
@@ -642,7 +642,7 @@ responsive-cover.responsive-cover-playlist {
 	border-radius: 25px;
 	width: 35%;
 	margin-top: 150px;
-	padding-top: 20px;
+	padding-top: 1.5%;
 	text-align: center;
 	background-color: #070;
 	color: #ffffff;
@@ -666,27 +666,16 @@ responsive-cover.responsive-cover-playlist {
 }
 
 
-.clearfix:after {
-     visibility: hidden;
-     display: block;
-     font-size: 0;
-     content: " ";
-     clear: both;
-     height: 0;
-     }
-.clearfix { display: inline-block; }
-* html .clearfix { height: 1%; }
-.clearfix { display: block; }
 
 .divLeft {
-	height: 15%;
+	height: 10%;
     width:50%;
 	display:block;
 	text-align: center;
     float: left;
 }
 .divRight {
-	height: 15%;
+	height: 10%;
     width:50%;
 	display:block;
 	text-align: center;
@@ -710,7 +699,6 @@ responsive-cover.responsive-cover-playlist {
 
 h2.headertekst {
 	text-align: center;
-	transform: translateY(+100%);
   }
 
 ::-webkit-scrollbar-track {
@@ -818,3 +806,16 @@ h2.headertekst {
     
 }
 
+#myProgress {
+	width: 100%;
+	border-radius: 25px;
+	background-color: #393b40;
+	margin-top: 25px;
+  }
+  
+#myBar {
+	width: 1%;
+	border-radius: 25px;
+	height: 20px;
+	background-color: #070;
+  }

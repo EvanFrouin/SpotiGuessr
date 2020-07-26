@@ -51,6 +51,7 @@
 				<div class="divRight" id="divRight">
 					<h2 class="headertekst" id="artistvisual">Artist</h2>
 				</div>
+				
 				<form name="guessform" id="guessform" autocomplete="off" class="center" onsubmit="return guessed(guess.value)">
 					<input type="text" name="guess" onpaste="return false" placeholder="Tape ici le titre ou l'artiste" id="guess" class="guess">
 					</br>
@@ -59,9 +60,16 @@
 						<button type='submit' style="display: none;" class="guessbtn" id="guessbtnbtn">GUESS</button>
 					</div>
 				</form>
+				
 				<div id="skipbtn" class="guesscenter">
 					<button type='submit' class="skipbtn" id="skipbtnbtn" onclick="reveal()">SKIP</button>
 				</div>
+				<div id="myProgress">
+					<div id="myBar"></div>
+				</div>
+
+				
+
 			</div>
 			<div id="launchgame" class="guesscenter">
 				<a ng-click="playall()"  style="display:none" id="launchgamebtnbtn"class="launchgamebtn">PLAY</a>
@@ -73,20 +81,24 @@
 			<h1>Final Score</h1>
 		</div>
 		<div class="guesscenter">
-			<h1 id="score">0</h1>
+			<h1 style="color:#070; font-weight: bold;" id="score">0</h1>
 		</div>
 
 		<div class="guesscenter">
 			<h1 id="foundcount">0</h1>
 			<h1>/</h1>
 			<h1>{{ data.tracks.total }}</h1>
+			<h1>&nbsp;|&nbsp;</h1>
+			<h1 id="foundprc">0</h1>
+			<h1>%</h1>
+
 			
 		</div>
 		
 	</div>
 
-	   
-</div>
+	</div>
+	
 </body>
 
 
