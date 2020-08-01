@@ -254,7 +254,7 @@ hr {
 	left: 0px;
 	top: 0px;
 	width: 100%;
-	
+
 	bottom: 260px;
 	padding: 0px;
 	overflow: auto;
@@ -621,7 +621,7 @@ responsive-cover.responsive-cover-playlist {
 }
 
 .guesscenter {
-	display: flex; 
+	display: flex;
 	justify-content: center;
 
 }
@@ -641,10 +641,26 @@ responsive-cover.responsive-cover-playlist {
 	height: 10%;
 	border-radius: 25px;
 	width: 35%;
-	margin-top: 150px;
-	padding-top: 1.5%;
+	margin-top: 70px;
+	padding-top: 1%;
+	padding-bottom: 1%;
 	text-align: center;
+	vertical-align: middle;
 	background-color: #070;
+	color: #ffffff;
+	font-size: xx-large;
+}
+
+.onlytbtn {
+	height: 7%;
+	border-radius: 25px;
+	width: 15%;
+	margin-top: 60px;
+	padding-top: 0.7%;
+	padding-bottom: 0.7%;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #444;
 	color: #ffffff;
 	font-size: xx-large;
 }
@@ -653,6 +669,8 @@ responsive-cover.responsive-cover-playlist {
 	height: 6%;
 	border-radius: 25px;
 	width: 10%;
+	padding-top: 0.4%;
+	padding-bottom: 0.4%;
 	text-align: center;
 	background-color: #444;
 	color: #ffffff;
@@ -665,7 +683,12 @@ responsive-cover.responsive-cover-playlist {
 	width: 200px;
 }
 
-
+.divOnly {
+	height: 10%;
+    width:50%;
+	display:inline;
+	text-align: center;
+}
 
 .divLeft {
 	height: 10%;
@@ -732,7 +755,7 @@ h2.headertekst {
   .rippleEffect {
 	  animation: rippleDrop .6s linear;
   }
-  
+
   @keyframes rippleDrop {
 	100% {
 	  transform: scale(2);
@@ -746,7 +769,7 @@ h2.headertekst {
 	left: 0;
 	padding: .2em;
     border:1px;
-    
+
 }
 .ui-dialog .ui-dialog-titlebar {
     border:1px;
@@ -770,12 +793,12 @@ h2.headertekst {
 }
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
 	float: right;
-    
+
 }
 .ui-dialog .ui-dialog-buttonpane button {
 	margin: .5em .4em .5em 0;
 	cursor: pointer;
-    
+
 }
 .ui-dialog .ui-resizable-se {
 	width: 12px;
@@ -783,7 +806,7 @@ h2.headertekst {
 	right: -5px;
 	bottom: -5px;
 	background-position: 16px 16px;
-    
+
 }
 .ui-draggable-handle {
 	-ms-touch-action: none;
@@ -795,7 +818,7 @@ h2.headertekst {
     color: #FFFFFF;
     width: 150px;
     background: #070;
-    
+
 }
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .cancelcls
 {
@@ -803,7 +826,7 @@ h2.headertekst {
     color: #FFFFFF;
     width: 150px;
     background: #070;
-    
+
 }
 
 #myProgress {
@@ -812,10 +835,44 @@ h2.headertekst {
 	background-color: #393b40;
 	margin-top: 25px;
   }
-  
+
 #myBar {
 	width: 1%;
 	border-radius: 25px;
 	height: 20px;
 	background-color: #070;
+  }
+
+  .slidecontainer {
+	width: 50%; /* Width of the outside container */
+  }
+
+  .slider {
+	-webkit-appearance: none;
+	width: 100%;
+	height: 15px;
+	border-radius: 5px;
+	background: #393b40;
+	outline: none;
+	opacity: 0.7;
+	-webkit-transition: .2s;
+	transition: opacity .2s;
+  }
+
+  .slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: #070;
+	cursor: pointer;
+  }
+
+  .slider::-moz-range-thumb {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: #070;
+	cursor: pointer;
   }

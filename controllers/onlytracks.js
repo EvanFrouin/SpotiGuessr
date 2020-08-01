@@ -21,7 +21,7 @@ var found = 0;
 	
 	var module = angular.module('PlayerApp');
 
-	module.controller('BlindTestController', function($scope, $rootScope, API, PlayQueue, $routeParams, Auth, $sce) {
+	module.controller('BlindTestOTController', function($scope, $rootScope, API, PlayQueue, $routeParams, Auth, $sce) {
 		$scope.playlist = $routeParams.playlist;
 		$scope.username = $routeParams.username;
 		$scope.name = '';
@@ -124,23 +124,19 @@ var found = 0;
 			tracksname =tracksall.map(function(track) {
 				return track.track.name;
 			});
-			artistsname =tracksall.map(function(track) {
-				return track.track.artists[0].name;
-			});
+			
 
 
 			console.log("AVANT "+tracksname);
 			tracksname=clean(tracksname);
 
 			console.log("TRACKS "+tracksname);
-			console.log("ARTISTS "+artistsname);
 
 			
 			PlayQueue.clear();
 			//shuffled = shuffle(trackuris);
 			//console.log("shuffle",shuffled);
 			trackname=tracksname[0];
-			artistname=artistsname[0];
 			//alert(shuffled)
 			
 			PlayQueue.enqueueList(trackuris);
@@ -190,7 +186,7 @@ function slider(){
 	i = document.getElementById('myRange');
 	o = document.getElementById('launchgamebtnbtn');
 	//$("#totaltracks").text(trackname) = i.value;
-	text = "Play on "+i.value+" songs"
+	text = "Play OnlyTracks on "+i.value+" songs"
 	// console.log(text,o.innerHTML);
 	o.innerHTML = text;
 }
@@ -233,26 +229,15 @@ function shuffle(array) {
 			$("#trackvisual").css("color", "#070");
 			$("#trackvisual").css("font-weight", "bold");
 			CorrectSound.play();
-			scoreadd(1);
+			wave();
 			wave();
 		});
 		trackcheck=1;
+		win();
 	}
 
 	//alert(similarity(rep,artistname));
 
-	if(similarity(rep.toLowerCase(),artistname.toLowerCase())>0.75){
-		//alert("Artist Ok");
-		$(document).ready(function() {
-			$("#artistvisual").text(artistname);
-			$("#artistvisual").css("color", "#070");
-			$("#artistvisual").css("font-weight", "bold");
-			CorrectSound.play();
-			scoreadd(1);
-			wave();
-		});
-		artistcheck=1;
-	}
 
 	if(similarity(rep.toLowerCase(),artistname.toLowerCase())<0.75 && similarity(rep.toLowerCase(),trackname.toLowerCase())<0.75){
 		WrongSound.play();
@@ -260,9 +245,6 @@ function shuffle(array) {
 			$("#guess").effect("shake", {times:1}, 350);
 		  });
 
-	}
-	if(trackcheck==1 && artistcheck==1){
-		win();
 	}
 
 	document.getElementById("guess").value ="";
@@ -299,13 +281,7 @@ function shuffle(array) {
 }
 
   function reveal(){
-	  if(document.getElementById('artistvisual').innerHTML == "Artist"){
-		$(document).ready(function() {
-			$("#artistvisual").text(artistname);
-			$("#artistvisual").css("color", "#ff6000");
-			$("#artistvisual").css("font-weight", "bold");
-		});
-	  }
+	  
 	  if(document.getElementById('trackvisual').innerHTML == "Track"){
 		$(document).ready(function() {
 			$("#trackvisual").text(trackname);
@@ -324,8 +300,7 @@ function shuffle(array) {
 			resetTA();
 			
 			trackname=tracksname[index];
-			artistname=artistsname[index];
-			console.log("T: "+trackname+" A: "+artistname);
+			console.log("T: "+trackname);
 			
 			console.log("COUNTER "+counter);
 			document.getElementById("indexcount").innerHTML = counter;
@@ -496,9 +471,6 @@ function shuffle(array) {
 	  artistcheck=0;
 	  trackcheck=0;
 	$(document).ready(function() {
-		$("#artistvisual").text("Artist");
-		$("#artistvisual").css("color", "")
-		$("#artistvisual").css("font-weight", "");
 		$("#trackvisual").text("Track");
 		$("#trackvisual").css("color", "")
 		$("#trackvisual").css("font-weight", "");
@@ -542,7 +514,7 @@ function shuffle(array) {
 	function newBackTimer(){
 		running=0;
 		delete backtimer;
-		backtimer = new BackTimer();
+		backtimer = new BackTimer2();
 		running=1;
 		backtimer.launch(getTimeAdd(30));
 
@@ -566,7 +538,7 @@ function shuffle(array) {
 
 
 
-	class BackTimer {
+	class BackTimer2 {
 		constructor() {}
 		async launch(time) {
 			if(running==1){

@@ -24,6 +24,10 @@
 				templateUrl: 'partials/blindtest.html',
 				controller: 'BlindTestController'
 			}).
+			when('/users/:username/playlists/:playlist/blindtest/onlytracks', {
+				templateUrl: 'partials/onlytracks.html',
+				controller: 'BlindTestOTController'
+			}).
 			otherwise({
 				redirectTo: '/'
 			});

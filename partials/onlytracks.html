@@ -1,5 +1,3 @@
-
-
 <body onload="picturepl(); slider();">
 	
 		<div class="divLeft">
@@ -46,12 +44,10 @@
 
 
 
-				<div class="divLeft" id="divLeft"> 
+				<div class="divOnly" id="divLeft"> 
 					<h2 class="headertekst" id="trackvisual">Track</h2>
 				</div>
-				<div class="divRight" id="divRight">
-					<h2 class="headertekst" id="artistvisual">Artist</h2>
-				</div>
+				
 				
 				<form name="guessform" id="guessform" autocomplete="off" class="center" onsubmit="return guessed(guess.value)">
 					<input type="text" name="guess" onpaste="return false" placeholder="Tape ici le titre ou l'artiste" id="guess" class="guess">
@@ -77,10 +73,10 @@
 					<input oninput="slider()" onchange="slider()" type="range"  min="1" max="{{data.tracks.total}}" value="{{data.tracks.total}}" class="slider center" id="myRange">
 				</div>
 				<div class="guesscenter">
-					<a ng-click="playall()"  style="display:none" id="launchgamebtnbtn"class="launchgamebtn">Play on {{data.tracks.total}} songs</a>
+					<a ng-click="playall()"  style="display:none" id="launchgamebtnbtn"class="launchgamebtn">Play OnlyTracks on {{data.tracks.total}} songs</a>
 				</div>
 				<div class="guesscenter">
-					<a href="#/users/{{data.owner.id}}/playlists/{{data.id}}/blindtest/onlytracks"  class="onlytbtn">OnlyTracks Mode</a>
+					<a href="#/users/{{data.owner.id}}/playlists/{{data.id}}/blindtest"  class="onlytbtn">Normal Mode</a>
 				</div>
 			</div>		
 	</div>
