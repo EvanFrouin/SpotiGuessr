@@ -49,7 +49,7 @@
 				</div>
 				
 				
-				<form name="guessform" id="guessform" autocomplete="off" class="center" onsubmit="return guessed(guess.value)">
+				<form name="guessform" id="guessform" autocomplete="off" class="center" onsubmit="return guessed2(guess.value)">
 					<input type="text" name="guess" onpaste="return false" placeholder="Tape ici le titre ou l'artiste" id="guess" class="guess">
 					</br>
 					</br>
@@ -59,7 +59,7 @@
 				</form>
 				
 				<div id="skipbtn" class="guesscenter">
-					<button type='submit' class="skipbtn" id="skipbtnbtn" onclick="reveal()">SKIP</button>
+					<button type='submit' class="skipbtn" id="skipbtnbtn" onclick="reveal2()">SKIP</button>
 				</div>
 				<div id="myProgress">
 					<div id="myBar"></div>
@@ -70,10 +70,10 @@
 			</div>
 			<div id="launchgame">
 				<div class="slidecontainer center" style="margin-top: 100px;" >
-					<input oninput="slider()" onchange="slider()" type="range"  min="1" max="{{data.tracks.total}}" value="{{data.tracks.total}}" class="slider center" id="myRange">
+					<input oninput="slider2()" onchange="slider2()" type="range"  min="1" max="{{data.tracks.total}}" value="{{data.tracks.total}}" class="slider center" id="myRange">
 				</div>
 				<div class="guesscenter">
-					<a ng-click="playall()"  style="display:none" id="launchgamebtnbtn"class="launchgamebtn">Play OnlyTracks on {{data.tracks.total}} songs</a>
+					<a ng-click="playall()"  style="display:none" id="launchgamebtnbtn"class="launchgamebtn">Play on {{data.tracks.total}} songs</a>
 				</div>
 				<div class="guesscenter">
 					<a href="#/users/{{data.owner.id}}/playlists/{{data.id}}/blindtest"  class="onlytbtn">Normal Mode</a>

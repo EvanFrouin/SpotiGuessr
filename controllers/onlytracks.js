@@ -8,7 +8,7 @@ var index = 0;
 var counter = 1;
 var tracksall ;
 var PlayQueue2 ;
-var backtimer;
+var backtimer2;
 var running = 0;
 var score = 0;
 var found = 0;
@@ -109,7 +109,7 @@ var found = 0;
 			
 
 			var alltracks = $scope.tracks;
-			var shuffled = shuffle(alltracks);
+			var shuffled = shuffle2(alltracks);
 
 
 			tracksall = shuffled;
@@ -128,7 +128,7 @@ var found = 0;
 
 
 			console.log("AVANT "+tracksname);
-			tracksname=clean(tracksname);
+			tracksname=clean2(tracksname);
 
 			console.log("TRACKS "+tracksname);
 
@@ -182,18 +182,18 @@ var found = 0;
 
 })();
 
-function slider(){
+function slider2(){
 	i = document.getElementById('myRange');
 	o = document.getElementById('launchgamebtnbtn');
 	//$("#totaltracks").text(trackname) = i.value;
-	text = "Play OnlyTracks on "+i.value+" songs"
+	text = "Play on "+i.value+" songs"
 	// console.log(text,o.innerHTML);
 	o.innerHTML = text;
 }
 
 
 
-function shuffle(array) {
+function shuffle2(array) {
 	var currentIndex = array.length, temporaryValue, randomIndex;
 
 	// While there remain elements to shuffle...
@@ -212,8 +212,9 @@ function shuffle(array) {
 	return array;
   }
 
-  function guessed(rep){
-	
+  function guessed2(rep){
+	  
+	//alert("c'est guessed2");
 	var WrongSound = new Audio('sound/wrong.mp3');
 	var CorrectSound = new Audio('sound/correct.mp3');
 
@@ -233,7 +234,7 @@ function shuffle(array) {
 			wave();
 		});
 		trackcheck=1;
-		win();
+		win2();
 	}
 
 	//alert(similarity(rep,artistname));
@@ -252,36 +253,40 @@ function shuffle(array) {
   }
 
   function killpq(){
+	//alert("c'est killpq");
 	  if(PlayQueue2){
 		PlayQueue2.pause();
 		running=0;
-		delete backtimer;
+		delete backtimer2;
 
 	  }
 	  }
 
-  function win(){
-	foundadd(1);
-	scoreadd(1);
+  function win2(){
+	//alert("c'est win2");
+	foundadd2(1);
+	scoreadd2(1);
 	document.getElementById('secondes').innerHTML = "Nice one !";
-	next();	
+	next2();	
   }
 
-  function scoreadd(point){
+  function scoreadd2(point){
+	//alert("c'est scoreadd2");
 	  score += point;
 	  document.getElementById('score').innerHTML = score;
 	  document.getElementById('scorecount').innerHTML = score;
 	  console.log("Score :"+score);
   }
 
-  function foundadd(i){
+  function foundadd2(i){
+	//alert("c'est foundadd2");
 	found += i;
 	document.getElementById('foundcount').innerHTML = found;
 	console.log("Found :"+found);
 }
 
-  function reveal(){
-	  
+  function reveal2(){
+	//alert("c'est reveal2");
 	  if(document.getElementById('trackvisual').innerHTML == "Track"){
 		$(document).ready(function() {
 			$("#trackvisual").text(trackname);
@@ -289,15 +294,16 @@ function shuffle(array) {
 			$("#trackvisual").css("font-weight", "bold");
 		});
 	  }
-	  next()
+	  next2()
   }
 
-  function next(){
+  function next2(){
+	//alert("c'est next2");
 	if(counter<tracksname.length){
 		PlayQueue2.pause();
 		running=0;
 		setTimeout(() => {
-			resetTA();
+			resetTA2();
 			
 			trackname=tracksname[index];
 			console.log("T: "+trackname);
@@ -310,21 +316,22 @@ function shuffle(array) {
 		}, 2000);
 	}
 	else{
-		endGame();
+		endGame2();
 		
 		
 		
 	}
   }
 
-  function endGame(){
+  function endGame2(){
+	//alert("c'est eg2");
 	var EndSound = new Audio('sound/end.mp3');
 	document.getElementById('foundprc').innerHTML = ((found/counter)*100).toFixed(2);
 
 	setTimeout(() => {
 		PlayQueue2.pause();
 		running=0;
-		delete backtimer;
+		delete backtimer2;
 
 
 
@@ -376,6 +383,14 @@ function shuffle(array) {
 
 
 		})
+
+		artistcheck = 0;
+		trackcheck = 0;
+		index = 0;
+		counter = 1;
+		running = 0;
+		score = 0;
+		found = 0;
 
 		EndSound.play();
 		
@@ -465,7 +480,7 @@ function shuffle(array) {
 
   }
 
-  function resetTA(){
+  function resetTA2(){
 	index++;
 	counter++;
 	  artistcheck=0;
@@ -512,16 +527,17 @@ function shuffle(array) {
 	}
 
 	function newBackTimer(){
+		//alert("c'est nbt");
 		running=0;
-		delete backtimer;
-		backtimer = new BackTimer2();
+		delete backtimer2;
+		backtimer2 = new BackTimer2();
 		running=1;
-		backtimer.launch(getTimeAdd(30));
+		backtimer2.launch(getTimeAdd(30));
 
 
 	}
 
-	function clean(rtracksname){
+	function clean2(rtracksname){
 		var cleaned=rtracksname;
 		for(var i =0;i<rtracksname.length;i++){
 			if(cleaned[i].replace(/[(].*[)]|- .*/gm, '')!=""){
@@ -541,6 +557,7 @@ function shuffle(array) {
 	class BackTimer2 {
 		constructor() {}
 		async launch(time) {
+			//alert("c'est bt2");
 			if(running==1){
 			var aujourdhui = new Date();
 			time_tmp = parseInt(aujourdhui.getTime() / 1000, 10);
@@ -566,12 +583,12 @@ function shuffle(array) {
 			}
 			else{
 
-				reveal();
+				reveal2();
 				
 			}
 		}
 		else{
-			console.log("backtimer stopped");
+			console.log("backtimer2 stopped");
 		}
 		}
 	  }

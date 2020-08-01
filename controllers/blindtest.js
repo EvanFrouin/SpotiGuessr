@@ -282,7 +282,7 @@ function shuffle(array) {
 	foundadd(1);
 	scoreadd(1);
 	document.getElementById('secondes').innerHTML = "Nice one !";
-	next();	
+	next1();	
   }
 
   function scoreadd(point){
@@ -313,10 +313,10 @@ function shuffle(array) {
 			$("#trackvisual").css("font-weight", "bold");
 		});
 	  }
-	  next()
+	  next1()
   }
 
-  function next(){
+  function next1(){
 	if(counter<tracksname.length){
 		PlayQueue2.pause();
 		running=0;
@@ -325,7 +325,7 @@ function shuffle(array) {
 			
 			trackname=tracksname[index];
 			artistname=artistsname[index];
-			console.log("T: "+trackname+" A: "+artistname);
+			console.log("T: "+trackname+" A: "+artistname+" I: "+index);
 			
 			console.log("COUNTER "+counter);
 			document.getElementById("indexcount").innerHTML = counter;
@@ -401,6 +401,14 @@ function shuffle(array) {
 
 
 		})
+
+		artistcheck = 0;
+		trackcheck = 0;
+		index = 0;
+		counter = 1;
+		running = 0;
+		score = 0;
+		found = 0;
 
 		EndSound.play();
 		
