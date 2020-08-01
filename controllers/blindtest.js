@@ -89,6 +89,8 @@ var found = 0;
 		};
 
 		$scope.playall = function() {
+
+			
 			
 			artistcheck = 0;
 			trackcheck = 0;
@@ -323,12 +325,14 @@ function shuffle(array) {
 
   function endGame(){
 	var EndSound = new Audio('sound/end.mp3');
-	document.getElementById('foundprc').innerHTML = (found/counter)*100;
+	document.getElementById('foundprc').innerHTML = ((found/counter)*100).toFixed(2);
 
 	setTimeout(() => {
 		PlayQueue2.pause();
 		running=0;
 		delete backtimer;
+
+
 
 		
 

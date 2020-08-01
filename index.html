@@ -39,6 +39,10 @@
 					<!-- <div class="searchbox">
 						<input type="text" ng-model="query" ng-change="loadsearch()" ng-keyup="loadsearch()" placeholder="Search..." />
 					</div> -->
+					<div class="volume" style="margin-top: 20px; margin-left: 6px;">
+						<img src="images/vol.png" width="17px" height="17px">
+						<input type="range" ng-change="changevolume()" min="0" max="100" ng-model="volume" />
+					</div>
 					<div class="titlebox">
 						<a href="#/home" onclick="killpq();">SpotiGuessr</a>
 					</div>

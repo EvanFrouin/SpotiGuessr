@@ -5,7 +5,7 @@
 	module.factory('Playback', function($rootScope, API, $interval) {
 		var _playing = false;
 		var _track = '';
-		var _volume = 100;
+		var _volume = 50;
 		var _progress = 0;
 		var _duration = 0;
 		var _trackdata = null;
