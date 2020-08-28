@@ -220,45 +220,72 @@ function shuffle(array) {
 	
 	var WrongSound = new Audio('sound/wrong.mp3');
 	var CorrectSound = new Audio('sound/correct.mp3');
+	var whole = trackname+" "+artistname;
+	var wholeRev = artistname+" "+trackname;
+
+	console.log("whole : "+whole);
+	console.log("wholeRev : "+wholeRev);
 
 	
 
 	//console.log(trackname);
 	//alert(similarity(rep,trackname));
 
-	if(similarity(rep.toLowerCase(),trackname.toLowerCase())>0.75){
+	if(similarity(rep.toLowerCase(),whole.toLowerCase())>0.75 || similarity(rep.toLowerCase(),wholeRev.toLowerCase())>0.75){
 		//alert("Track Ok");
 		$(document).ready(function() {
 			$("#trackvisual").text(trackname);
 			$("#trackvisual").css("color", "#070");
 			$("#trackvisual").css("font-weight", "bold");
-			CorrectSound.play();
-			scoreadd(1);
-			wave();
-		});
-		trackcheck=1;
-	}
-
-	//alert(similarity(rep,artistname));
-
-	if(similarity(rep.toLowerCase(),artistname.toLowerCase())>0.75){
-		//alert("Artist Ok");
-		$(document).ready(function() {
 			$("#artistvisual").text(artistname);
 			$("#artistvisual").css("color", "#070");
 			$("#artistvisual").css("font-weight", "bold");
 			CorrectSound.play();
-			scoreadd(1);
+			scoreadd(2);
+			wave();
 			wave();
 		});
+		trackcheck=1;
 		artistcheck=1;
 	}
+	else{
 
-	if(similarity(rep.toLowerCase(),artistname.toLowerCase())<0.75 && similarity(rep.toLowerCase(),trackname.toLowerCase())<0.75){
-		WrongSound.play();
-		$(document).ready(function() {
-			$("#guess").effect("shake", {times:1}, 350);
-		  });
+
+		if(similarity(rep.toLowerCase(),trackname.toLowerCase())>0.75){
+			//alert("Track Ok");
+			$(document).ready(function() {
+				$("#trackvisual").text(trackname);
+				$("#trackvisual").css("color", "#070");
+				$("#trackvisual").css("font-weight", "bold");
+				CorrectSound.play();
+				scoreadd(1);
+				wave();
+			});
+			trackcheck=1;
+		}
+
+		//alert(similarity(rep,artistname));
+
+		if(similarity(rep.toLowerCase(),artistname.toLowerCase())>0.75){
+			//alert("Artist Ok");
+			$(document).ready(function() {
+				$("#artistvisual").text(artistname);
+				$("#artistvisual").css("color", "#070");
+				$("#artistvisual").css("font-weight", "bold");
+				CorrectSound.play();
+				scoreadd(1);
+				wave();
+			});
+			artistcheck=1;
+		}
+
+		if(similarity(rep.toLowerCase(),artistname.toLowerCase())<0.75 && similarity(rep.toLowerCase(),trackname.toLowerCase())<0.75){
+			WrongSound.play();
+			$(document).ready(function() {
+				$("#guess").effect("shake", {times:1}, 350);
+			});
+
+		}
 
 	}
 	if(trackcheck==1 && artistcheck==1){
